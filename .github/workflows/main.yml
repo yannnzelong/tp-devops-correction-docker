@@ -40,10 +40,10 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: SonarCloud analysis
+      - name: Build and SonarCloud analysis
         working-directory: ./simple-api
         run: |
-          mvn sonar:sonar \
+          mvn -B clean verify sonar:sonar \
             -Dsonar.projectKey=yannnzelong_tp-devops-correction-docker \
             -Dsonar.organization=yannnzelong \
             -Dsonar.host.url=https://sonarcloud.io \
