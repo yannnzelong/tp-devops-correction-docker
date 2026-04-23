@@ -1,0 +1,9 @@
+- hosts: prod
+  become: true
+
+  roles:
+    - docker
+    - network
+    - database
+    - backend
+    - proxy

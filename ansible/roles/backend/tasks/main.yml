@@ -1,0 +1,10 @@
+- name: Run backend
+  docker_container:
+    name: simple-api
+    image: yannnzelong/tp-backend:latest
+    networks:
+      - name: app-network
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/db
+      SPRING_DATASOURCE_USERNAME: usr
+      SPRING_DATASOURCE_PASSWORD: pwd
