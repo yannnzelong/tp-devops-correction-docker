@@ -15,7 +15,7 @@
 
 - name: Add Docker GPG key
   shell: |
-    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 - name: Add Docker repository
   apt_repository:
