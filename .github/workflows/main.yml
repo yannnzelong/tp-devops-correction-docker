@@ -79,6 +79,7 @@ jobs:
   deploy:
     needs: build-and-push-docker-image
     runs-on: ubuntu-24.04
+    environment: production
 
     steps:
       - name: Checkout code
