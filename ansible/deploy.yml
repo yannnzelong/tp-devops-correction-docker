@@ -1,0 +1,31 @@
+- hosts: prod
+  become: true
+
+  tasks:
+
+    - name: Pull backend image
+      docker_container:
+        name: simple-api
+        image: yannnzelong/tp-backend:latest
+        state: started
+        recreate: true
+        ports:
+          - "8080:8080"
+
+    - name: Pull database image
+      docker_container:
+        name: database
+        image: yannnzelong/tp-database:latest
+        state: started
+        recreate: true
+        ports:
+          - "5432:5432"
+
+    - name: Pull proxy image
+      docker_container:
+        name: httpd
+        image: yannnzelong/tp-httpd:latest
+        state: started
+        recreate: true
+        ports:
+          - "80:80"
