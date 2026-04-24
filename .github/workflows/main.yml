@@ -76,31 +76,31 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-httpd:latest
           push: ${{ github.ref == 'refs/heads/main' }}
 
-deploy:
-  needs: build-and-push-docker-image
-  runs-on: ubuntu-24.04
+  deploy:
+    needs: build-and-push-docker-image
+    runs-on: ubuntu-24.04
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-    - name: Add known hosts
-      run: ssh-keyscan -H yann.nzelong.takima.school >> ~/.ssh/known_hosts
+      - name: Add known hosts
+        run: ssh-keyscan -H yann.nzelong.takima.school >> ~/.ssh/known_hosts
 
-    - name: Install Ansible
-      run: |
-        sudo apt update
-        sudo apt install -y ansible
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
 
-    - name: Run Ansible deploy
-      run: |
-        ansible-playbook \
-          -i ansible/inventories/setup.yml \
-          --private-key ~/.ssh/id_rsa \
-          ansible/deploy.yml
+      - name: Run Ansible deploy
+        run: |
+          ansible-playbook \
+            -i ansible/inventories/setup.yml \
+            --private-key ~/.ssh/id_rsa \
+            ansible/deploy.yml
